@@ -1,12 +1,655 @@
-📸 Book Photographer
-🎥 Book Videographer
-🖼️ Photo Editing
-📁 Select Your Photos
-💳 Make Payment
-📅 My Bookings
-👤 My Account
-💬 Contact Us
-Telegram Mini App connection
-Mobile-friendly premium design
-Booking form
-Local booking history for the first prototype
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BBNI Media Hub</title>
+
+  <!-- Telegram Mini App -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0b0b0f;
+      color: white;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #15151d, #242431);
+      padding: 28px 20px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+
+    .logo {
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
+
+    .header h1 {
+      font-size: 25px;
+      letter-spacing: 1px;
+    }
+
+    .header p {
+      color: #aaa;
+      margin-top: 7px;
+      font-size: 14px;
+    }
+
+    .container {
+      padding: 18px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .welcome {
+      margin-bottom: 20px;
+    }
+
+    .welcome h2 {
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .welcome p {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      background: #17171f;
+      border: 1px solid #292934;
+      border-radius: 18px;
+      padding: 20px 12px;
+      min-height: 125px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .card:active {
+      transform: scale(0.96);
+      background: #22222d;
+    }
+
+    .icon {
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-size: 15px;
+    }
+
+    .card p {
+      font-size: 11px;
+      color: #888;
+      margin-top: 6px;
+    }
+
+    .section {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .back {
+      background: #292934;
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      cursor: pointer;
+    }
+
+    .section h2 {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin: 13px 0 6px;
+      color: #bbb;
+      font-size: 13px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 11px;
+      border: 1px solid #333;
+      background: #17171f;
+      color: white;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .submit {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #000;
+      font-weight: bold;
+      font-size: 15px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .booking {
+      background: #17171f;
+      border: 1px solid #292934;
+      border-radius: 14px;
+      padding: 15px;
+      margin-bottom: 12px;
+    }
+
+    .booking strong {
+      font-size: 16px;
+    }
+
+    .booking small {
+      display: block;
+      color: #999;
+      margin-top: 6px;
+    }
+
+    .contact {
+      background: #17171f;
+      padding: 20px;
+      border-radius: 16px;
+      line-height: 2;
+    }
+
+    .footer {
+      text-align: center;
+      color: #666;
+      font-size: 11px;
+      padding: 30px 10px;
+    }
+
+    .empty {
+      text-align: center;
+      color: #777;
+      padding: 30px 10px;
+    }
+
+    @media (max-width: 380px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">📸</div>
+    <h1>BBNI MEDIA HUB</h1>
+    <p>Photography • Videography • Editing</p>
+  </div>
+
+  <div class="container">
+
+    <!-- HOME -->
+    <div id="home" class="section active">
+
+      <div class="welcome">
+        <h2>Welcome 👋</h2>
+        <p>What would you like to do today?</p>
+      </div>
+
+      <div class="grid">
+
+        <div class="card" onclick="openSection('photographer')">
+          <div class="icon">📸</div>
+          <h3>Book Photographer</h3>
+          <p>Capture your special moments</p>
+        </div>
+
+        <div class="card" onclick="openSection('videographer')">
+          <div class="icon">🎥</div>
+          <h3>Book Videographer</h3>
+          <p>Professional video coverage</p>
+        </div>
+
+        <div class="card" onclick="openSection('editing')">
+          <div class="icon">🖼️</div>
+          <h3>Photo Editing</h3>
+          <p>Professional retouching</p>
+        </div>
+
+        <div class="card" onclick="openSection('select')">
+          <div class="icon">📁</div>
+          <h3>Select Your Photos</h3>
+          <p>Choose photos for editing</p>
+        </div>
+
+        <div class="card" onclick="openSection('payment')">
+          <div class="icon">💳</div>
+          <h3>Make Payment</h3>
+          <p>Secure payment</p>
+        </div>
+
+        <div class="card" onclick="openSection('bookings')">
+          <div class="icon">📅</div>
+          <h3>My Bookings</h3>
+          <p>View your bookings</p>
+        </div>
+
+        <div class="card" onclick="openSection('account')">
+          <div class="icon">👤</div>
+          <h3>My Account</h3>
+          <p>Your BBNI profile</p>
+        </div>
+
+        <div class="card" onclick="openSection('contact')">
+          <div class="icon">💬</div>
+          <h3>Contact Us</h3>
+          <p>Talk to BBNI Media</p>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PHOTOGRAPHER -->
+    <div id="photographer" class="section">
+
+      <button class="back" onclick="goHome()">← Back</button>
+
+      <h2>📸 Book Photographer</h2>
+
+      <form onsubmit="createBooking(event, 'Photographer')">
+
+        <label>Full Name</label>
+        <input id="photoName" required placeholder="Your name">
+
+        <label>Phone Number</label>
+        <input id="photoPhone" required placeholder="055 xxx xxxx">
+
+        <label>Event Type</label>
+        <select id="photoEvent">
+          <option>Wedding</option>
+          <option>Birthday</option>
+          <option>Graduation</option>
+          <option>Church Event</option>
+          <option>Corporate Event</option>
+          <option>Other</option>
+        </select>
+
+        <label>Event Date</label>
+        <input id="photoDate" type="date" required>
+
+        <label>Location</label>
+        <input id="photoLocation" required placeholder="Event location">
+
+        <label>Additional Information</label>
+        <textarea id="photoMessage"
+          placeholder="Tell us anything important about your event"></textarea>
+
+        <button class="submit">Submit Booking 📸</button>
+
+      </form>
+
+    </div>
+
+
+    <!-- VIDEOGRAPHER -->
+    <div id="videographer" class="section">
+
+      <button class="back" onclick="goHome()">← Back</button>
+
+      <h2>🎥 Book Videographer</h2>
+
+      <form onsubmit="createBooking(event, 'Videographer')">
+
+        <label>Full Name</label>
+        <input id="videoName" required placeholder="Your name">
+
+        <label>Phone Number</label>
+        <input id="videoPhone" required placeholder="055 xxx xxxx">
+
+        <label>Event Type</label>
+        <select id="videoEvent">
+          <option>Wedding</option>
+          <option>Birthday</option>
+          <option>Graduation</option>
+          <option>Church Event</option>
+          <option>Corporate Event</option>
+          <option>Other</option>
+        </select>
+
+        <label>Event Date</label>
+        <input id="videoDate" type="date" required>
+
+        <label>Location</label>
+        <input id="videoLocation" required placeholder="Event location">
+
+        <label>Additional Information</label>
+        <textarea id="videoMessage"
+          placeholder="Describe the coverage you need"></textarea>
+
+        <button class="submit">Submit Booking 🎥</button>
+
+      </form>
+
+    </div>
+
+
+    <!-- EDITING -->
+    <div id="editing" class="section">
+
+      <button class="back" onclick="goHome()">← Back</button>
+
+      <h2>🖼️ Photo Editing</h2>
+
+      <label>Service</label>
+
+      <select>
+        <option>Professional Portrait Retouching</option>
+        <option>Wedding Photo Editing</option>
+        <option>Skin Retouching</option>
+        <option>Background Removal</option>
+        <option>Background Change</option>
+        <option>Color Correction</option>
+        <option>Photo Restoration</option>
+      </select>
+
+      <label>Number of Photos</label>
+      <input type="number" min="1" placeholder="Example: 20">
+
+      <label>Instructions</label>
+      <textarea placeholder="Tell us how you want your photos edited"></textarea>
+
+      <button class="submit" onclick="alert('Photo editing request saved. Photo upload will be connected in the next version.')">
+        Continue 🖼️
+      </button>
+
+    </div>
+
+
+    <!-- SELECT PHOTOS -->
+    <div id="select" class="section">
+
+      <button class="back" onclick="goHome()">← Back</button>
+
+      <h2>📁 Select Your Photos</h2>
+
+      <p style="color:#aaa;line-height:1.6;">
+        Your private photo gallery will appear here.
+        You will be able to select the photos you want BBNI Media Hub to edit.
+      </p>
+
+      <button class="submit"
+        onclick="alert('Client gallery connection will be added next.')">
+        Open My Gallery 📸
+      </button>
+
+    </div>
+
+
+    <!-- PAYMENT -->
+    <div id="payment" class="section">
+
+      <button class="back" onclick="goHome()">← Back</button>
+
+      <h2>💳 Make Payment</h2>
+
+      <label>Booking / Invoice Number</label>
+      <input id="invoice" placeholder="Example: BBNI-001">
+
+      <label>Amount (GHS)</label>
+      <input id="amount" type="number" placeholder="Enter amount">
+
+      <button class="submit" onclick="makePayment()">
+        Continue to Payment 💳
+      </button>
+
+      <p style="color:#777;font-size:12px;margin-top:15px;">
+        Payment gateway will be connected after the booking system is completed.
+      </p>
+
+    </div>
+
+
+    <!-- BOOKINGS -->
+    <div id="bookings" class="section">
+
+      <button class="back" onclick="goHome()">← Back</button>
+
+      <h2>📅 My Bookings</h2>
+
+      <div id="bookingList"></div>
+
+    </div>
+
+
+    <!-- ACCOUNT -->
+    <div id="account" class="section">
+
+      <button class="back" onclick="goHome()">← Back</button>
+
+      <h2>👤 My Account</h2>
+
+      <div class="contact">
+
+        <p><strong>Name:</strong> <span id="userName">Telegram User</span></p>
+
+        <p><strong>Telegram ID:</strong>
+          <span id="telegramId">Not connected</span>
+        </p>
+
+        <p><strong>Status:</strong> Active</p>
+
+      </div>
+
+    </div>
+
+
+    <!-- CONTACT -->
+    <div id="contact" class="section">
+
+      <button class="back" onclick="goHome()">← Back</button>
+
+      <h2>💬 Contact BBNI Media</h2>
+
+      <div class="contact">
+
+        <p>📸 Photography</p>
+        <p>🎥 Videography</p>
+        <p>🖼️ Photo Editing</p>
+        <p>📱 Social Media Services</p>
+
+        <br>
+
+        <p><strong>WhatsApp:</strong></p>
+        <p>Contact BBNI Media Hub</p>
+
+        <button class="submit"
+          onclick="window.open('https://wa.me/233000000000','_blank')">
+          Chat on WhatsApp 💬
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="footer">
+      © 2026 BBNI Media Hub<br>
+      Professional Media Services
+    </div>
+
+  </div>
+
+
+  <script>
+
+    // TELEGRAM
+    const tg = window.Telegram.WebApp;
+
+    tg.ready();
+    tg.expand();
+
+
+    // SECTION NAVIGATION
+    function openSection(id) {
+
+      document.querySelectorAll('.section')
+        .forEach(section => section.classList.remove('active'));
+
+      document.getElementById(id).classList.add('active');
+
+      if (id === 'bookings') {
+        displayBookings();
+      }
+
+      window.scrollTo(0, 0);
+    }
+
+
+    function goHome() {
+
+      document.querySelectorAll('.section')
+        .forEach(section => section.classList.remove('active'));
+
+      document.getElementById('home').classList.add('active');
+
+      window.scrollTo(0, 0);
+    }
+
+
+    // BOOKINGS
+    function createBooking(event, service) {
+
+      event.preventDefault();
+
+      let booking = {
+        service: service,
+        date: new Date().toLocaleDateString(),
+        status: "Pending"
+      };
+
+      let bookings =
+        JSON.parse(localStorage.getItem("bbniBookings") || "[]");
+
+      bookings.push(booking);
+
+      localStorage.setItem(
+        "bbniBookings",
+        JSON.stringify(bookings)
+      );
+
+      alert(
+        "✅ Booking submitted successfully!\\n\\n" +
+        "Service: " + service +
+        "\\nStatus: Pending"
+      );
+
+      goHome();
+    }
+
+
+    // DISPLAY BOOKINGS
+    function displayBookings() {
+
+      let list = document.getElementById("bookingList");
+
+      let bookings =
+        JSON.parse(localStorage.getItem("bbniBookings") || "[]");
+
+      if (bookings.length === 0) {
+
+        list.innerHTML =
+          '<div class="empty">You have no bookings yet.</div>';
+
+        return;
+      }
+
+      list.innerHTML = "";
+
+      bookings.forEach((booking, index) => {
+
+        list.innerHTML += `
+          <div class="booking">
+            <strong>${booking.service}</strong>
+            <small>Booking #${index + 1}</small>
+            <small>Date: ${booking.date}</small>
+            <small>Status: ${booking.status}</small>
+          </div>
+        `;
+
+      });
+
+    }
+
+
+    // PAYMENT
+    function makePayment() {
+
+      let amount = document.getElementById("amount").value;
+
+      if (!amount) {
+
+        alert("Please enter the payment amount.");
+
+        return;
+      }
+
+      alert(
+        "Payment system is ready for connection.\\n\\n" +
+        "Amount: GHS " + amount
+      );
+
+    }
+
+
+    // TELEGRAM USER
+    if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+
+      const user = tg.initDataUnsafe.user;
+
+      document.getElementById("userName").innerText =
+        (user.first_name || "") +
+        " " +
+        (user.last_name || "");
+
+      document.getElementById("telegramId").innerText =
+        user.id;
+
+    }
+
+  </script>
+
+</body>
+</html>
