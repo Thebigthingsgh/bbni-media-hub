@@ -565,4 +565,91 @@
 
       bookings.push(booking);
 
-     
+      localStorage.setItem(
+        "bbniBookings",
+        JSON.stringify(bookings)
+      );
+
+      alert(
+        "✅ Booking submitted successfully!\\n\\n" +
+        "Service: " + service +
+        "\\nStatus: Pending"
+      );
+
+      goHome();
+    }
+
+
+    // DISPLAY BOOKINGS
+    function displayBookings() {
+
+      let list = document.getElementById("bookingList");
+
+      let bookings =
+        JSON.parse(localStorage.getItem("bbniBookings") || "[]");
+
+      if (bookings.length === 0) {
+
+        list.innerHTML =
+          '<div class="empty">You have no bookings yet.</div>';
+
+        return;
+      }
+
+      list.innerHTML = "";
+
+      bookings.forEach((booking, index) => {
+
+        list.innerHTML += `
+          <div class="booking">
+            <strong>${booking.service}</strong>
+            <small>Booking #${index + 1}</small>
+            <small>Date: ${booking.date}</small>
+            <small>Status: ${booking.status}</small>
+          </div>
+        `;
+
+      });
+
+    }
+
+
+    // PAYMENT
+    function makePayment() {
+
+      let amount = document.getElementById("amount").value;
+
+      if (!amount) {
+
+        alert("Please enter the payment amount.");
+
+        return;
+      }
+
+      alert(
+        "Payment system is ready for connection.\\n\\n" +
+        "Amount: GHS " + amount
+      );
+
+    }
+
+
+    // TELEGRAM USER
+    if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+
+      const user = tg.initDataUnsafe.user;
+
+      document.getElementById("userName").innerText =
+        (user.first_name || "") +
+        " " +
+        (user.last_name || "");
+
+      document.getElementById("telegramId").innerText =
+        user.id;
+
+    }
+
+  </script>
+
+</body>
+</html>
