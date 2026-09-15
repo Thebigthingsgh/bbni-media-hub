@@ -675,10 +675,10 @@ const response = await fetch(
   {
     method: "GET",
 
-    headers: {
-      "apikey": SUPABASE_PUBLISHABLE_KEY,
-      "x-telegram-user-id": String(telegramUser.id)
-    }
+headers: {
+  "apikey": SUPABASE_PUBLISHABLE_KEY,
+  "x-telegram-user-id": String(telegramUser.id)
+}
   }
 );
 
