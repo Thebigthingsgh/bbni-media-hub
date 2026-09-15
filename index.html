@@ -651,38 +651,80 @@ alert(
 }
 
     // DISPLAY BOOKINGS
-    function displayBookings() {
+    async function displayBookings() {
 
-      let list = document.getElementById("bookingList");
+let list = document.getElementById("bookingList");
 
-      let bookings =
-        JSON.parse(localStorage.getItem("bbniBookings") || "[]");
+list.innerHTML = '<div class="empty">Loading your bookings...</div>';
 
-      if (bookings.length === 0) {
+const telegramUser =
+tg.initDataUnsafe && tg.initDataUnsafe.user
+? tg.initDataUnsafe.user
+: null;
 
-        list.innerHTML =
-          '<div class="empty">You have no bookings yet.</div>';
+if (!telegramUser) {
+list.innerHTML =
+'<div class="empty">Please open the Media Hub through Telegram to view your bookings.</div>';
+return;
+}
 
-        return;
-      }
+try {
 
-      list.innerHTML = "";
+const response = await fetch(
+`${SUPABASE_URL}/rest/v1/bookings?telegram_user_id=eq.${telegramUser.id}&order=created_at.desc`,
+{
+method: "GET",
 
-      bookings.forEach((booking, index) => {
+headers: {
+"apikey": SUPABASE_PUBLISHABLE_KEY
+}
 
-        list.innerHTML += `
-          <div class="booking">
-            <strong>${booking.service}</strong>
-            <small>Booking #${index + 1}</small>
-            <small>Date: ${booking.date}</small>
-            <small>Status: ${booking.status}</small>
-          </div>
-        `;
+}
+);
 
-      });
+if (!response.ok) {
+const errorText = await response.text();
+throw new Error(errorText || `HTTP ${response.status}`);
+}
 
-    }
+const bookings = await response.json();
 
+if (bookings.length === 0) {
+
+list.innerHTML =
+'<div class="empty">You have no bookings yet.</div>';
+
+return;
+
+}
+
+list.innerHTML = "";
+
+bookings.forEach((booking, index) => {
+
+list.innerHTML += `
+<div class="booking">
+<strong>${booking.service}</strong>
+<small>Booking #${index + 1}</small>
+<small>Event: ${booking.event_type || "Not provided"}</small>
+<small>Date: ${booking.event_date || "Not provided"}</small>
+<small>Location: ${booking.location || "Not provided"}</small>
+<small>Status: ${booking.status || "Pending"}</small>
+</div>
+`;
+
+});
+
+} catch (error) {
+
+console.error("Booking loading error:", error);
+
+list.innerHTML =
+'<div class="empty">Unable to load your bookings. Please try again.</div>';
+
+}
+
+}
 
     // PAYMENT
     function makePayment() {
