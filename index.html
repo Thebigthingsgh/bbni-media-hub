@@ -578,7 +578,77 @@
 
       goHome();
     }
+const SUPABASE_URL = "https://zzrbgmyewipdmgngiklq.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = sb_publishable_q9opiMYaC2jtCt2VdZGV3w_qY_lF9WU
 
+async function createBooking(event, service) {
+
+event.preventDefault();
+
+const prefix = service === "Photographer" ? "photo" : "video";
+
+const telegramUser =
+tg.initDataUnsafe && tg.initDataUnsafe.user
+? tg.initDataUnsafe.user
+: null;
+
+const booking = {
+service: service,
+full_name: document.getElementById(prefix + "Name").value.trim(),
+phone: document.getElementById(prefix + "Phone").value.trim(),
+event_type: document.getElementById(prefix + "Event").value,
+event_date: document.getElementById(prefix + "Date").value,
+location: document.getElementById(prefix + "Location").value.trim(),
+message: document.getElementById(prefix + "Message").value.trim(),
+status: "pending",
+telegram_user_id: telegramUser ? String(telegramUser.id) : null,
+telegram_username: telegramUser ? (telegramUser.username || null) : null
+};
+
+try {
+
+const response = await fetch(
+`${SUPABASE_URL}/rest/v1/bookings`,
+{
+method: "POST",
+
+headers: {
+"Content-Type": "application/json",
+"apikey": SUPABASE_PUBLISHABLE_KEY,
+"Prefer": "return=minimal"
+},
+
+body: JSON.stringify(booking)
+}
+);
+
+if (!response.ok) {
+const errorText = await response.text();
+throw new Error(errorText || `HTTP ${response.status}`);
+}
+
+alert(
+"✅ Booking submitted successfully!\n\n" +
+"Service: " + service +
+"\nStatus: Pending"
+);
+
+event.target.reset();
+
+goHome();
+
+} catch (error) {
+
+console.error("Booking submission error:", error);
+
+alert(
+"❌ Booking could not be submitted.\n\n" +
+"Please try again."
+);
+
+}
+
+}
 
     // DISPLAY BOOKINGS
     function displayBookings() {
