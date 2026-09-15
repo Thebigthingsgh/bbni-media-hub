@@ -671,15 +671,15 @@ return;
 try {
 
 const response = await fetch(
-`${SUPABASE_URL}/rest/v1/bookings?telegram_user_id=eq.${telegramUser.id}&order=created_at.desc`,
-{
-method: "GET",
+  `${SUPABASE_URL}/rest/v1/bookings?telegram_user_id=eq.${telegramUser.id}&order=created_at.desc`,
+  {
+    method: "GET",
 
-headers: {
-"apikey": SUPABASE_PUBLISHABLE_KEY
-}
-
-}
+    headers: {
+      "apikey": SUPABASE_PUBLISHABLE_KEY,
+      "x-telegram-user-id": String(telegramUser.id)
+    }
+  }
 );
 
 if (!response.ok) {
