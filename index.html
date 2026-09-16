@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +6,6 @@
 
   <title>BBNI Media Hub</title>
 
-  <!-- Telegram Mini App -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
@@ -19,20 +17,27 @@
     }
 
     body {
-      background: #0b0b0f;
-      color: white;
+      background: #0b0b10;
+      color: #fff;
       min-height: 100vh;
     }
 
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
     .header {
-      background: linear-gradient(135deg, #15151d, #242431);
-      padding: 28px 20px;
+      padding: 28px 20px 22px;
       text-align: center;
-      border-bottom: 1px solid #333;
+      background: linear-gradient(135deg, #12121a, #242434);
+      border-bottom: 1px solid #30303b;
     }
 
     .logo {
-      font-size: 42px;
+      font-size: 44px;
       margin-bottom: 8px;
     }
 
@@ -42,23 +47,33 @@
     }
 
     .header p {
-      color: #aaa;
       margin-top: 7px;
-      font-size: 14px;
+      color: #aaa;
+      font-size: 13px;
     }
 
     .container {
-      padding: 18px;
-      max-width: 600px;
+      width: 100%;
+      max-width: 650px;
       margin: auto;
+      padding: 18px;
+    }
+
+    .section {
+      display: none;
+      margin-top: 8px;
+    }
+
+    .section.active {
+      display: block;
     }
 
     .welcome {
-      margin-bottom: 20px;
+      margin: 10px 0 20px;
     }
 
     .welcome h2 {
-      font-size: 22px;
+      font-size: 23px;
       margin-bottom: 6px;
     }
 
@@ -74,22 +89,21 @@
     }
 
     .card {
-      background: #17171f;
-      border: 1px solid #292934;
+      background: #181820;
+      border: 1px solid #2c2c36;
       border-radius: 18px;
-      padding: 20px 12px;
-      min-height: 125px;
+      padding: 19px 12px;
+      min-height: 128px;
       text-align: center;
       cursor: pointer;
-      transition: 0.2s;
+      transition: .15s;
     }
 
     .card:active {
-      transform: scale(0.96);
-      background: #22222d;
+      transform: scale(.97);
     }
 
-    .icon {
+    .card .icon {
       font-size: 35px;
       margin-bottom: 10px;
     }
@@ -99,110 +113,147 @@
     }
 
     .card p {
-      font-size: 11px;
-      color: #888;
       margin-top: 6px;
-    }
-
-    .section {
-      display: none;
-      margin-top: 20px;
-    }
-
-    .section.active {
-      display: block;
+      color: #888;
+      font-size: 11px;
+      line-height: 1.4;
     }
 
     .back {
+      border: 0;
       background: #292934;
-      border: none;
-      color: white;
-      padding: 10px 16px;
+      color: #fff;
+      padding: 10px 15px;
       border-radius: 10px;
-      margin-bottom: 18px;
+      margin-bottom: 17px;
       cursor: pointer;
     }
 
     .section h2 {
+      font-size: 22px;
       margin-bottom: 15px;
+    }
+
+    .panel {
+      background: #17171f;
+      border: 1px solid #292934;
+      border-radius: 17px;
+      padding: 18px;
     }
 
     label {
       display: block;
-      margin: 13px 0 6px;
       color: #bbb;
       font-size: 13px;
+      margin: 13px 0 6px;
     }
 
     input,
     select,
     textarea {
       width: 100%;
-      padding: 14px;
+      border: 1px solid #363640;
+      background: #101017;
+      color: #fff;
       border-radius: 11px;
-      border: 1px solid #333;
-      background: #17171f;
-      color: white;
+      padding: 13px;
       outline: none;
     }
 
     textarea {
-      min-height: 100px;
+      min-height: 95px;
       resize: vertical;
     }
 
-    .submit {
+    .primary {
       width: 100%;
-      padding: 15px;
-      border: none;
+      border: 0;
       border-radius: 12px;
-      background: #ffffff;
+      padding: 15px;
+      margin-top: 18px;
+      background: #fff;
       color: #000;
       font-weight: bold;
-      font-size: 15px;
-      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .secondary {
+      width: 100%;
+      border: 1px solid #3b3b46;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 10px;
+      background: #22222b;
+      color: #fff;
       cursor: pointer;
     }
 
     .booking {
-      background: #17171f;
-      border: 1px solid #292934;
+      background: #101017;
+      border: 1px solid #30303a;
       border-radius: 14px;
       padding: 15px;
-      margin-bottom: 12px;
+      margin-top: 12px;
     }
 
     .booking strong {
+      display: block;
       font-size: 16px;
+      margin-bottom: 6px;
     }
 
     .booking small {
       display: block;
-      color: #999;
-      margin-top: 6px;
+      color: #aaa;
+      line-height: 1.6;
     }
 
-    .contact {
-      background: #17171f;
-      padding: 20px;
-      border-radius: 16px;
-      line-height: 2;
-    }
-
-    .footer {
-      text-align: center;
-      color: #666;
+    .badge {
+      display: inline-block;
+      margin-top: 9px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #2b2b36;
+      color: #fff;
       font-size: 11px;
-      padding: 30px 10px;
     }
 
     .empty {
       text-align: center;
       color: #777;
-      padding: 30px 10px;
+      padding: 28px 10px;
     }
 
-    @media (max-width: 380px) {
+    .contact-row {
+      background: #111118;
+      border: 1px solid #2d2d37;
+      border-radius: 12px;
+      padding: 13px;
+      margin-top: 10px;
+    }
+
+    .contact-row strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .contact-row span {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .footer {
+      text-align: center;
+      color: #62626d;
+      padding: 30px 10px;
+      font-size: 11px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 390px) {
       .grid {
         grid-template-columns: 1fr;
       }
@@ -212,7 +263,6 @@
 
 <body>
 
-  <!-- HEADER -->
   <div class="header">
     <div class="logo">📸</div>
     <h1>BBNI MEDIA HUB</h1>
@@ -225,8 +275,8 @@
     <div id="home" class="section active">
 
       <div class="welcome">
-        <h2>Welcome 👋</h2>
-        <p>What would you like to do today?</p>
+        <h2 id="welcomeText">Welcome 👋</h2>
+        <p>Professional media services in one place.</p>
       </div>
 
       <div class="grid">
@@ -234,59 +284,53 @@
         <div class="card" onclick="openSection('photographer')">
           <div class="icon">📸</div>
           <h3>Book Photographer</h3>
-          <p>Capture your special moments</p>
+          <p>Weddings, birthdays, graduations and more.</p>
         </div>
 
         <div class="card" onclick="openSection('videographer')">
           <div class="icon">🎥</div>
           <h3>Book Videographer</h3>
-          <p>Professional video coverage</p>
+          <p>Professional video coverage for your event.</p>
         </div>
 
         <div class="card" onclick="openSection('editing')">
           <div class="icon">🖼️</div>
           <h3>Photo Editing</h3>
-          <p>Professional retouching</p>
-        </div>
-
-        <div class="card" onclick="openSection('select')">
-          <div class="icon">📁</div>
-          <h3>Select Your Photos</h3>
-          <p>Choose photos for editing</p>
-        </div>
-
-        <div class="card" onclick="openSection('payment')">
-          <div class="icon">💳</div>
-          <h3>Make Payment</h3>
-          <p>Secure payment</p>
+          <p>Retouching, restoration and professional edits.</p>
         </div>
 
         <div class="card" onclick="openSection('bookings')">
           <div class="icon">📅</div>
           <h3>My Bookings</h3>
-          <p>View your bookings</p>
+          <p>View your bookings and their status.</p>
         </div>
-        <div class="card" onclick="openSection('admin')">
+
+        <div class="card" onclick="openSection('payment')">
+          <div class="icon">💳</div>
+          <h3>Make Payment</h3>
+          <p>MTN MoMo, card and other payment options.</p>
+        </div>
+
+        <div id="adminCard" class="card hidden" onclick="openSection('admin')">
           <div class="icon">👨🏾‍💼</div>
           <h3>Admin Dashboard</h3>
-          <p>Manage client bookings</p>
-         </div>
+          <p>Manage all client bookings.</p>
+        </div>
+
         <div class="card" onclick="openSection('account')">
           <div class="icon">👤</div>
           <h3>My Account</h3>
-          <p>Your BBNI profile</p>
+          <p>View your Telegram account details.</p>
         </div>
 
         <div class="card" onclick="openSection('contact')">
           <div class="icon">💬</div>
           <h3>Contact Us</h3>
-          <p>Talk to BBNI Media</p>
+          <p>Call, WhatsApp or email BBNI Media.</p>
         </div>
 
       </div>
-
     </div>
-
 
     <!-- PHOTOGRAPHER -->
     <div id="photographer" class="section">
@@ -295,13 +339,16 @@
 
       <h2>📸 Book Photographer</h2>
 
-      <form onsubmit="createBooking(event, 'Photographer')">
+      <div class="panel">
 
         <label>Full Name</label>
-        <input id="photoName" required placeholder="Your name">
+        <input id="photoName" placeholder="Your full name">
 
         <label>Phone Number</label>
-        <input id="photoPhone" required placeholder="055 xxx xxxx">
+        <input id="photoPhone" placeholder="055 xxx xxxx">
+
+        <label>Email</label>
+        <input id="photoEmail" type="email" placeholder="your@email.com">
 
         <label>Event Type</label>
         <select id="photoEvent">
@@ -314,21 +361,26 @@
         </select>
 
         <label>Event Date</label>
-        <input id="photoDate" type="date" required>
+        <input id="photoDate" type="date">
+
+        <label>Event Time</label>
+        <input id="photoTime" type="time">
 
         <label>Location</label>
-        <input id="photoLocation" required placeholder="Event location">
+        <input id="photoLocation" placeholder="Event location">
+
+        <label>Budget / Amount (GHS)</label>
+        <input id="photoAmount" type="number" min="0" step="0.01" placeholder="Example: 1500">
 
         <label>Additional Information</label>
-        <textarea id="photoMessage"
-          placeholder="Tell us anything important about your event"></textarea>
+        <textarea id="photoMessage" placeholder="Tell us about your event"></textarea>
 
-        <button class="submit">Submit Booking 📸</button>
+        <button class="primary" onclick="submitBooking('Photographer')">
+          Submit Photography Booking
+        </button>
 
-      </form>
-
+      </div>
     </div>
-
 
     <!-- VIDEOGRAPHER -->
     <div id="videographer" class="section">
@@ -337,13 +389,16 @@
 
       <h2>🎥 Book Videographer</h2>
 
-      <form onsubmit="createBooking(event, 'Videographer')">
+      <div class="panel">
 
         <label>Full Name</label>
-        <input id="videoName" required placeholder="Your name">
+        <input id="videoName" placeholder="Your full name">
 
         <label>Phone Number</label>
-        <input id="videoPhone" required placeholder="055 xxx xxxx">
+        <input id="videoPhone" placeholder="055 xxx xxxx">
+
+        <label>Email</label>
+        <input id="videoEmail" type="email" placeholder="your@email.com">
 
         <label>Event Type</label>
         <select id="videoEvent">
@@ -356,21 +411,26 @@
         </select>
 
         <label>Event Date</label>
-        <input id="videoDate" type="date" required>
+        <input id="videoDate" type="date">
+
+        <label>Event Time</label>
+        <input id="videoTime" type="time">
 
         <label>Location</label>
-        <input id="videoLocation" required placeholder="Event location">
+        <input id="videoLocation" placeholder="Event location">
+
+        <label>Budget / Amount (GHS)</label>
+        <input id="videoAmount" type="number" min="0" step="0.01" placeholder="Example: 2000">
 
         <label>Additional Information</label>
-        <textarea id="videoMessage"
-          placeholder="Describe the coverage you need"></textarea>
+        <textarea id="videoMessage" placeholder="Tell us about your event"></textarea>
 
-        <button class="submit">Submit Booking 🎥</button>
+        <button class="primary" onclick="submitBooking('Videographer')">
+          Submit Videography Booking
+        </button>
 
-      </form>
-
+      </div>
     </div>
-
 
     <!-- EDITING -->
     <div id="editing" class="section">
@@ -379,104 +439,114 @@
 
       <h2>🖼️ Photo Editing</h2>
 
-      <label>Service</label>
+      <div class="panel">
 
-      <select>
-        <option>Professional Portrait Retouching</option>
-        <option>Wedding Photo Editing</option>
-        <option>Skin Retouching</option>
-        <option>Background Removal</option>
-        <option>Background Change</option>
-        <option>Color Correction</option>
-        <option>Photo Restoration</option>
-      </select>
+        <label>Full Name</label>
+        <input id="editName" placeholder="Your full name">
 
-      <label>Number of Photos</label>
-      <input type="number" min="1" placeholder="Example: 20">
+        <label>Phone Number</label>
+        <input id="editPhone" placeholder="055 xxx xxxx">
 
-      <label>Instructions</label>
-      <textarea placeholder="Tell us how you want your photos edited"></textarea>
+        <label>Email</label>
+        <input id="editEmail" type="email" placeholder="your@email.com">
 
-      <button class="submit" onclick="alert('Photo editing request saved. Photo upload will be connected in the next version.')">
-        Continue 🖼️
-      </button>
+        <label>Editing Service</label>
+        <select id="editService">
+          <option>Professional Portrait Retouching</option>
+          <option>Wedding Photo Editing</option>
+          <option>Skin Retouching</option>
+          <option>Background Removal</option>
+          <option>Background Change</option>
+          <option>Color Correction</option>
+          <option>Photo Restoration</option>
+        </select>
 
+        <label>Number of Photos</label>
+        <input id="editCount" type="number" min="1" placeholder="Example: 20">
+
+        <label>Budget / Amount (GHS)</label>
+        <input id="editAmount" type="number" min="0" step="0.01" placeholder="Example: 200">
+
+        <label>Instructions</label>
+        <textarea id="editMessage" placeholder="Describe how you want the photos edited"></textarea>
+
+        <button class="primary" onclick="submitEditingBooking()">
+          Submit Editing Request
+        </button>
+
+      </div>
     </div>
 
-
-    <!-- SELECT PHOTOS -->
-    <div id="select" class="section">
-
-      <button class="back" onclick="goHome()">← Back</button>
-
-      <h2>📁 Select Your Photos</h2>
-
-      <p style="color:#aaa;line-height:1.6;">
-        Your private photo gallery will appear here.
-        You will be able to select the photos you want BBNI Media Hub to edit.
-      </p>
-
-      <button class="submit"
-        onclick="alert('Client gallery connection will be added next.')">
-        Open My Gallery 📸
-      </button>
-
-    </div>
-
-
-    <!-- PAYMENT -->
-    <div id="payment" class="section">
-
-      <button class="back" onclick="goHome()">← Back</button>
-
-      <h2>💳 Make Payment</h2>
-
-      <label>Booking / Invoice Number</label>
-      <input id="invoice" placeholder="Example: BBNI-001">
-
-      <label>Amount (GHS)</label>
-      <input id="amount" type="number" placeholder="Enter amount">
-
-      <button class="submit" onclick="makePayment()">
-        Continue to Payment 💳
-      </button>
-
-      <p style="color:#777;font-size:12px;margin-top:15px;">
-        Payment gateway will be connected after the booking system is completed.
-      </p>
-
-    </div>
-
-
-    <!-- BOOKINGS -->
+    <!-- MY BOOKINGS -->
     <div id="bookings" class="section">
 
       <button class="back" onclick="goHome()">← Back</button>
 
       <h2>📅 My Bookings</h2>
 
-      <div id="bookingList"></div>
+      <div id="myBookingsList">
+        <div class="empty">Loading...</div>
+      </div>
 
     </div>
 
-   <!-- ADMIN DASHBOARD -->
-<div id="admin" class="section">
+    <!-- PAYMENT -->
+    <div id="payment" class="section">
 
-  <button class="back" onclick="goHome()">← Back</button>
+      <button class="back" onclick="goHome()">← Back</button>
 
-  <h2>👨🏾‍💼 Admin Dashboard</h2>
+      <h2>💳 Payment</h2>
 
-  <div class="contact">
+      <div class="panel">
 
-    <h3>📋 Client Bookings</h3>
+        <p style="color:#aaa;line-height:1.6;">
+          Your secure payment page will support MTN MoMo,
+          cards and other available payment methods.
+        </p>
 
-    <div id="adminBookingList">
-      <div class="empty">Loading bookings...</div>
+        <label>Booking Reference</label>
+        <input id="paymentReference" placeholder="Example: BBNI-XXXX">
+
+        <label>Amount (GHS)</label>
+        <input id="paymentAmount" type="number" min="1" step="0.01" placeholder="Enter amount">
+
+        <button class="primary" onclick="startPayment()">
+          Continue to Payment
+        </button>
+
+        <div class="contact-row">
+          <strong>Payment methods</strong>
+          <span>MTN MoMo • Card • Other available options</span>
+        </div>
+
+      </div>
     </div>
 
-  </div>
+    <!-- ADMIN -->
+    <div id="admin" class="section">
 
-</div>
+      <button class="back" onclick="goHome()">← Back</button>
+
+      <h2>👨🏾‍💼 Admin Dashboard</h2>
+
+      <div class="panel">
+
+        <div class="contact-row">
+          <strong>BBNI Media Hub</strong>
+          <span>Owner Dashboard</span>
+        </div>
+
+        <button class="secondary" onclick="loadAdminBookings()">
+          🔄 Refresh Bookings
+        </button>
+
+        <div id="adminBookingsList">
+          <div class="empty">Loading...</div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- ACCOUNT -->
     <div id="account" class="section">
 
@@ -484,398 +554,578 @@
 
       <h2>👤 My Account</h2>
 
-      <div class="contact">
+      <div class="panel">
 
-        <p><strong>Name:</strong> <span id="userName">Telegram User</span></p>
+        <div class="contact-row">
+          <strong>Name</strong>
+          <span id="accountName">Telegram User</span>
+        </div>
 
-        <p><strong>Telegram ID:</strong>
-          <span id="telegramId">Not connected</span>
-        </p>
+        <div class="contact-row">
+          <strong>Telegram ID</strong>
+          <span id="accountTelegramId">Not connected</span>
+        </div>
 
-        <p><strong>Status:</strong> Active</p>
+        <div class="contact-row">
+          <strong>Username</strong>
+          <span id="accountUsername">Not available</span>
+        </div>
+
+        <div class="contact-row">
+          <strong>Status</strong>
+          <span>Active</span>
+        </div>
 
       </div>
-
     </div>
-
 
     <!-- CONTACT -->
     <div id="contact" class="section">
 
       <button class="back" onclick="goHome()">← Back</button>
 
-      <h2>💬 Contact BBNI Media</h2>
+      <h2>💬 Contact BBNI Media Hub</h2>
 
-      <div class="contact">
+      <div class="panel">
 
-        <p>📸 Photography</p>
-        <p>🎥 Videography</p>
-        <p>🖼️ Photo Editing</p>
-        <p>📱 Social Media Services</p>
+        <div class="contact-row">
+          <strong>📞 Phone</strong>
+          <span>0558008359 / 0256729993</span>
+        </div>
 
-        <br>
+        <div class="contact-row">
+          <strong>💬 WhatsApp</strong>
+          <span>+233 55 800 8359</span>
+        </div>
 
-        <p><strong>WhatsApp:</strong></p>
-        <p>Contact BBNI Media Hub</p>
+        <div class="contact-row">
+          <strong>📧 Email</strong>
+          <span>eddycoby027@gmail.com</span>
+        </div>
 
-        <button class="submit"
-          onclick="window.open('https://wa.me/233558008359','_blank')">
-          Chat on WhatsApp 💬
+        <div class="contact-row">
+          <strong>📍 Location</strong>
+          <span>Accra, Ghana</span>
+        </div>
+
+        <button class="primary" onclick="openWhatsApp()">
+          Chat on WhatsApp
+        </button>
+
+        <button class="secondary" onclick="sendEmail()">
+          Email BBNI Media Hub
+        </button>
+
+        <button class="secondary" onclick="callBBNI()">
+          Call BBNI Media Hub
         </button>
 
       </div>
-
     </div>
 
     <div class="footer">
-      © 2020 BBNI Media Hub<br>
-      Professional Media Services
+      © 2026 BBNI Media Hub<br>
+      Photography • Videography • Editing
     </div>
 
   </div>
 
-
   <script>
 
-    // TELEGRAM
     const tg = window.Telegram.WebApp;
+
+    const API_URL =
+      "https://zzrbgmyewipdmgngiklq.supabase.co/functions/v1/bbni-api";
 
     tg.ready();
     tg.expand();
 
+    const initData = tg.initData || "";
 
-    // SECTION NAVIGATION
-  function openSection(id) {
+    let isAdmin = false;
 
-  document.querySelectorAll('.section').forEach(function(section) {
-    section.classList.remove('active');
-  });
-
-  const selectedSection = document.getElementById(id);
-
-  if (!selectedSection) {
-    console.error("Section not found:", id);
-    return;
-  }
-
-  selectedSection.classList.add('active');
-
-  if (id === 'bookings') {
-    if (typeof displayBookings === 'function') {
-      displayBookings();
-    }
-  }
-
-  if (id === 'admin') {
-    if (typeof displayAdminBookings === 'function') {
-      displayAdminBookings();
-    }
-  }
-}
-      window.scrollTo(0, 0);
+    function escapeHtml(value) {
+      if (value === null || value === undefined) return "";
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
     }
 
+    async function api(action, extra = {}) {
 
-    function goHome() {
+      if (!initData) {
+        throw new Error(
+          "Please open BBNI Media Hub from inside Telegram."
+        );
+      }
 
-      document.querySelectorAll('.section')
-        .forEach(section => section.classList.remove('active'));
-
-      document.getElementById('home').classList.add('active');
-
-      window.scrollTo(0, 0);
-    }
-
-
-    // BOOKINGS
-    function createBooking(event, service) {
-
-      event.preventDefault();
-
-      let booking = {
-        service: service,
-        date: new Date().toLocaleDateString(),
-        status: "Pending"
-      };
-
-      let bookings =
-        JSON.parse(localStorage.getItem("bbniBookings") || "[]");
-
-      bookings.push(booking);
-
-      localStorage.setItem(
-        "bbniBookings",
-        JSON.stringify(bookings)
-      );
-
-      alert(
-        "✅ Booking submitted successfully!\\n\\n" +
-        "Service: " + service +
-        "\\nStatus: Pending"
-      );
-
-      goHome();
-    }
-const SUPABASE_URL = "https://zzrbgmyewipdmgngiklq.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_q9opiMYaC2jtCt2VdZGV3w_qY_lF9WU";
-
-async function createBooking(event, service) {
-
-event.preventDefault();
-
-const prefix = service === "Photographer" ? "photo" : "video";
-
-const telegramUser =
-tg.initDataUnsafe && tg.initDataUnsafe.user
-? tg.initDataUnsafe.user
-: null;
-
-const booking = {
-service: service,
-full_name: document.getElementById(prefix + "Name").value.trim(),
-phone: document.getElementById(prefix + "Phone").value.trim(),
-event_type: document.getElementById(prefix + "Event").value,
-event_date: document.getElementById(prefix + "Date").value,
-location: document.getElementById(prefix + "Location").value.trim(),
-message: document.getElementById(prefix + "Message").value.trim(),
-status: "pending",
-telegram_user_id: telegramUser ? String(telegramUser.id) : null,
-telegram_username: telegramUser ? (telegramUser.username || null) : null
-};
-
-try {
-
-const response = await fetch(
-`${SUPABASE_URL}/rest/v1/bookings`,
-{
-method: "POST",
-
-headers: {
-"Content-Type": "application/json",
-"apikey": SUPABASE_PUBLISHABLE_KEY,
-"Prefer": "return=minimal"
-},
-
-body: JSON.stringify(booking)
-}
-);
-
-if (!response.ok) {
-const errorText = await response.text();
-throw new Error(errorText || `HTTP ${response.status}`);
-}
-
-alert(
-"✅ Booking submitted successfully!\n\n" +
-"Service: " + service +
-"\nStatus: Pending"
-);
-
-event.target.reset();
-
-goHome();
-
-} catch (error) {
-
-console.error("Booking submission error:", error);
-
-alert(
-"❌ Booking could not be submitted.\n\n" +
-"Please try again."
-);
-
-}
-
-}
-
-    // DISPLAY BOOKINGS
-    async function displayBookings() {
-
-let list = document.getElementById("bookingList");
-
-list.innerHTML = '<div class="empty">Loading your bookings...</div>';
-
-const telegramUser =
-tg.initDataUnsafe && tg.initDataUnsafe.user
-? tg.initDataUnsafe.user
-: null;
-
-if (!telegramUser) {
-list.innerHTML =
-'<div class="empty">Please open the Media Hub through Telegram to view your bookings.</div>';
-return;
-}
-
-try {
-
-const response = await fetch(
-  `${SUPABASE_URL}/rest/v1/bookings?telegram_user_id=eq.${telegramUser.id}&order=created_at.desc`,
-  {
-    method: "GET",
-
-headers: {
-  "apikey": SUPABASE_PUBLISHABLE_KEY,
-  "x-telegram-user-id": String(telegramUser.id)
-}
-  }
-);
-
-if (!response.ok) {
-const errorText = await response.text();
-throw new Error(errorText || `HTTP ${response.status}`);
-}
-
-const bookings = await response.json();
-
-if (bookings.length === 0) {
-
-list.innerHTML =
-'<div class="empty">You have no bookings yet.</div>';
-
-return;
-
-}
-
-list.innerHTML = "";
-
-bookings.forEach((booking, index) => {
-
-list.innerHTML += `
-<div class="booking">
-<strong>${booking.service}</strong>
-<small>Booking #${index + 1}</small>
-<small>Event: ${booking.event_type || "Not provided"}</small>
-<small>Date: ${booking.event_date || "Not provided"}</small>
-<small>Location: ${booking.location || "Not provided"}</small>
-<small>Status: ${booking.status || "Pending"}</small>
-</div>
-`;
-
-});
-
-} catch (error) {
-
-console.error("Booking loading error:", error);
-
-list.innerHTML =
-'<div class="empty">Unable to load your bookings. Please try again.</div>';
-
-}
-
-}
-// ADMIN BOOKINGS
-async function displayAdminBookings() {
-
-  const list = document.getElementById("adminBookingList");
-
-  list.innerHTML =
-    '<div class="empty">Loading all client bookings...</div>';
-
-  try {
-
-    const response = await fetch(
-      `${SUPABASE_URL}/functions/v1/admin-bookings`,
-      {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPABASE_PUBLISHABLE_KEY
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          initData: Telegram.WebApp.initData
+          action,
+          initData,
+          ...extra
         })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Request failed");
       }
-    );
 
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.error || `HTTP ${response.status}`);
+      return data;
     }
 
-    const bookings = result.bookings || [];
+    function openSection(id) {
 
-    if (bookings.length === 0) {
-      list.innerHTML =
-        '<div class="empty">No client bookings yet.</div>';
-      return;
+      document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+      });
+
+      const section = document.getElementById(id);
+
+      if (!section) {
+        console.error("Section not found:", id);
+        return;
+      }
+
+      section.classList.add("active");
+
+      window.scrollTo(0, 0);
+
+      if (id === "bookings") {
+        loadMyBookings();
+      }
+
+      if (id === "admin") {
+        loadAdminBookings();
+      }
     }
 
-    list.innerHTML = "";
+    function goHome() {
+      document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+      });
 
-    bookings.forEach((booking, index) => {
+      document.getElementById("home").classList.add("active");
 
-      list.innerHTML += `
-        <div class="booking">
+      window.scrollTo(0, 0);
+    }
 
-          <strong>${booking.service || "Service"}</strong>
+    function setLoading(id, text = "Loading...") {
+      const el = document.getElementById(id);
 
-          <small>Booking #${index + 1}</small>
+      if (el) {
+        el.innerHTML = `<div class="empty">${text}</div>`;
+      }
+    }
 
-          <small>👤 Client: ${booking.full_name || "Not provided"}</small>
+    async function submitBooking(service) {
 
-          <small>📞 Phone: ${booking.phone || "Not provided"}</small>
+      const prefix = service === "Photographer"
+        ? "photo"
+        : "video";
 
-          <small>🎉 Event: ${booking.event_type || "Not provided"}</small>
+      const booking = {
+        full_name: document.getElementById(prefix + "Name").value.trim(),
+        phone: document.getElementById(prefix + "Phone").value.trim(),
+        email: document.getElementById(prefix + "Email").value.trim(),
+        service,
+        event_type: document.getElementById(prefix + "Event").value,
+        event_date: document.getElementById(prefix + "Date").value || null,
+        event_time: document.getElementById(prefix + "Time").value || null,
+        location: document.getElementById(prefix + "Location").value.trim(),
+        message: document.getElementById(prefix + "Message").value.trim(),
+        amount: Number(document.getElementById(prefix + "Amount").value || 0)
+      };
 
-          <small>📅 Date: ${booking.event_date || "Not provided"}</small>
+      if (!booking.full_name || !booking.phone || !booking.location) {
+        alert("Please fill in your name, phone number and location.");
+        return;
+      }
 
-          <small>⏰ Time: ${booking.event_time || "Not provided"}</small>
+      try {
 
-          <small>📍 Location: ${booking.location || "Not provided"}</small>
+        tg.MainButton.showProgress();
 
-          <small>💬 Message: ${booking.message || "None"}</small>
+        const result = await api("create_booking", {
+          booking
+        });
 
-          <small>🟡 Status: ${booking.status || "Pending"}</small>
+        tg.MainButton.hideProgress();
 
-        </div>
-      `;
+        alert(
+          "✅ Booking submitted successfully!\n\n" +
+          "Your booking is now pending confirmation."
+        );
 
-    });
+        document
+          .querySelectorAll("#photographer input, #photographer textarea")
+          .forEach(el => el.value = "");
 
-  } catch (error) {
+        document
+          .querySelectorAll("#videographer input, #videographer textarea")
+          .forEach(el => el.value = "");
 
-    console.error("Admin booking loading error:", error);
+        goHome();
 
-    list.innerHTML =
-      `<div class="empty">Unable to load client bookings.<br><small>${error.message}</small></div>`;
+        if (result.booking?.id) {
+          console.log("Booking created:", result.booking.id);
+        }
 
-  }
-}
-    // PAYMENT
-    function makePayment() {
+      } catch (error) {
 
-      let amount = document.getElementById("amount").value;
+        tg.MainButton.hideProgress();
 
-      if (!amount) {
+        console.error(error);
 
-        alert("Please enter the payment amount.");
+        alert(
+          "❌ Booking could not be submitted.\n\n" +
+          error.message
+        );
+      }
+    }
 
+    async function submitEditingBooking() {
+
+      const booking = {
+        full_name: document.getElementById("editName").value.trim(),
+        phone: document.getElementById("editPhone").value.trim(),
+        email: document.getElementById("editEmail").value.trim(),
+
+        service:
+          "Photo Editing - " +
+          document.getElementById("editService").value,
+
+        event_type:
+          "Editing request - " +
+          document.getElementById("editCount").value +
+          " photos",
+
+        event_date: null,
+        event_time: null,
+        location: null,
+
+        message:
+          document.getElementById("editMessage").value.trim(),
+
+        amount:
+          Number(document.getElementById("editAmount").value || 0)
+      };
+
+      if (!booking.full_name || !booking.phone) {
+        alert("Please enter your name and phone number.");
+        return;
+      }
+
+      try {
+
+        const result = await api("create_booking", {
+          booking
+        });
+
+        alert(
+          "✅ Editing request submitted successfully!\n\n" +
+          "We will contact you about the request."
+        );
+
+        document
+          .querySelectorAll("#editing input, #editing textarea")
+          .forEach(el => el.value = "");
+
+        goHome();
+
+        console.log("Editing booking:", result.booking);
+
+      } catch (error) {
+
+        console.error(error);
+
+        alert(
+          "❌ Request could not be submitted.\n\n" +
+          error.message
+        );
+      }
+    }
+
+    async function loadMyBookings() {
+
+      setLoading(
+        "myBookingsList",
+        "Loading your bookings..."
+      );
+
+      try {
+
+        const result = await api("my_bookings");
+
+        const bookings = result.bookings || [];
+
+        if (!bookings.length) {
+          document.getElementById("myBookingsList").innerHTML =
+            '<div class="empty">You have no bookings yet.</div>';
+          return;
+        }
+
+        document.getElementById("myBookingsList").innerHTML =
+          bookings.map((booking, index) => `
+            <div class="booking">
+
+              <strong>${escapeHtml(booking.service)}</strong>
+
+              <small>Booking #${index + 1}</small>
+
+              <small>
+                📅 Date:
+                ${escapeHtml(booking.event_date || "Not provided")}
+              </small>
+
+              <small>
+                ⏰ Time:
+                ${escapeHtml(booking.event_time || "Not provided")}
+              </small>
+
+              <small>
+                📍 Location:
+                ${escapeHtml(booking.location || "Not provided")}
+              </small>
+
+              <small>
+                💰 Amount:
+                GHS ${Number(booking.amount || 0).toFixed(2)}
+              </small>
+
+              <span class="badge">
+                Booking: ${escapeHtml(booking.booking_status)}
+              </span>
+
+              <span class="badge">
+                Payment: ${escapeHtml(booking.payment_status)}
+              </span>
+
+            </div>
+          `).join("");
+
+      } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("myBookingsList").innerHTML =
+          `<div class="empty">
+            Unable to load bookings.<br>
+            ${escapeHtml(error.message)}
+          </div>`;
+      }
+    }
+
+    async function checkAdmin() {
+
+      try {
+
+        const result = await api("check_admin");
+
+        isAdmin = result.is_admin === true;
+
+        if (isAdmin) {
+          document
+            .getElementById("adminCard")
+            .classList.remove("hidden");
+        }
+
+      } catch (error) {
+
+        console.log("Admin check:", error.message);
+
+        isAdmin = false;
+
+      }
+    }
+
+    async function loadAdminBookings() {
+
+      if (!isAdmin) {
+        alert("Admin access denied.");
+        goHome();
+        return;
+      }
+
+      setLoading(
+        "adminBookingsList",
+        "Loading all client bookings..."
+      );
+
+      try {
+
+        const result = await api("admin_bookings");
+
+        const bookings = result.bookings || [];
+
+        if (!bookings.length) {
+          document.getElementById("adminBookingsList").innerHTML =
+            '<div class="empty">No client bookings yet.</div>';
+          return;
+        }
+
+        document.getElementById("adminBookingsList").innerHTML =
+          bookings.map((booking, index) => `
+            <div class="booking">
+
+              <strong>
+                ${escapeHtml(booking.service)}
+              </strong>
+
+              <small>
+                Booking #${index + 1}
+              </small>
+
+              <small>
+                👤 Client:
+                ${escapeHtml(booking.full_name || "Not provided")}
+              </small>
+
+              <small>
+                📞 Phone:
+                ${escapeHtml(booking.phone || "Not provided")}
+              </small>
+
+              <small>
+                📧 Email:
+                ${escapeHtml(booking.email || "Not provided")}
+              </small>
+
+              <small>
+                🎉 Event:
+                ${escapeHtml(booking.event_type || "Not provided")}
+              </small>
+
+              <small>
+                📅 Date:
+                ${escapeHtml(booking.event_date || "Not provided")}
+              </small>
+
+              <small>
+                ⏰ Time:
+                ${escapeHtml(booking.event_time || "Not provided")}
+              </small>
+
+              <small>
+                📍 Location:
+                ${escapeHtml(booking.location || "Not provided")}
+              </small>
+
+              <small>
+                💰 Amount:
+                GHS ${Number(booking.amount || 0).toFixed(2)}
+              </small>
+
+              <small>
+                💬 ${escapeHtml(booking.message || "No message")}
+              </small>
+
+              <span class="badge">
+                Booking: ${escapeHtml(booking.booking_status)}
+              </span>
+
+              <span class="badge">
+                Payment: ${escapeHtml(booking.payment_status)}
+              </span>
+
+            </div>
+          `).join("");
+
+      } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("adminBookingsList").innerHTML =
+          `<div class="empty">
+            Unable to load client bookings.<br>
+            ${escapeHtml(error.message)}
+          </div>`;
+      }
+    }
+
+    function startPayment() {
+
+      const reference =
+        document.getElementById("paymentReference").value.trim();
+
+      const amount =
+        Number(document.getElementById("paymentAmount").value || 0);
+
+      if (!reference || amount <= 0) {
+        alert("Please enter a booking reference and valid amount.");
         return;
       }
 
       alert(
-        "Payment system is ready for connection.\\n\\n" +
-        "Amount: GHS " + amount
+        "Payment gateway connection is the next stage.\n\n" +
+        "Booking: " + reference +
+        "\nAmount: GHS " + amount.toFixed(2)
       );
-
     }
 
+    function openWhatsApp() {
 
-    // TELEGRAM USER
-    if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-
-      const user = tg.initDataUnsafe.user;
-
-      document.getElementById("userName").innerText =
-        (user.first_name || "") +
-        " " +
-        (user.last_name || "");
-
-      document.getElementById("telegramId").innerText =
-        user.id;
-
+      window.open(
+        "https://wa.me/233558008359",
+        "_blank"
+      );
     }
+
+    function sendEmail() {
+
+      window.location.href =
+        "mailto:eddycoby027@gmail.com";
+    }
+
+    function callBBNI() {
+
+      window.location.href =
+        "tel:+233558008359";
+    }
+
+    function loadTelegramProfile() {
+
+      const user =
+        tg.initDataUnsafe &&
+        tg.initDataUnsafe.user
+          ? tg.initDataUnsafe.user
+          : null;
+
+      if (!user) {
+        return;
+      }
+
+      const fullName =
+        [user.first_name, user.last_name]
+          .filter(Boolean)
+          .join(" ");
+
+      document.getElementById("welcomeText").textContent =
+        "Welcome, " + (user.first_name || "there") + " 👋";
+
+      document.getElementById("accountName").textContent =
+        fullName || "Telegram User";
+
+      document.getElementById("accountTelegramId").textContent =
+        user.id || "Not available";
+
+      document.getElementById("accountUsername").textContent =
+        user.username
+          ? "@" + user.username
+          : "No username";
+    }
+
+    loadTelegramProfile();
+    checkAdmin();
 
   </script>
 
