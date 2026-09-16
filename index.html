@@ -544,23 +544,33 @@
 
 
     // SECTION NAVIGATION
-    function openSection(id) {
+  function openSection(id) {
 
-  document.querySelectorAll('.section').forEach(section => {
+  document.querySelectorAll('.section').forEach(function(section) {
     section.classList.remove('active');
   });
 
-  document.getElementById(id).classList.add('active');
+  const selectedSection = document.getElementById(id);
+
+  if (!selectedSection) {
+    console.error("Section not found:", id);
+    return;
+  }
+
+  selectedSection.classList.add('active');
 
   if (id === 'bookings') {
-    displayBookings();
+    if (typeof displayBookings === 'function') {
+      displayBookings();
+    }
   }
 
   if (id === 'admin') {
-    displayAdminBookings();
+    if (typeof displayAdminBookings === 'function') {
+      displayAdminBookings();
+    }
   }
 }
-
       window.scrollTo(0, 0);
     }
 
