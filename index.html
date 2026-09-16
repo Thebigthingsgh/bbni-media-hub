@@ -459,7 +459,23 @@
 
     </div>
 
+    <!-- ADMIN DASHBOARD -->
+<div id="admin" class="section">
 
+  <button class="back" onclick="goHome()">← Back</button>
+
+  <h2>👨🏾‍💼 Admin Dashboard</h2>
+
+  <div class="contact">
+    <h3>📋 Client Bookings</h3>
+
+    <div id="adminBookingList">
+      <div class="empty">Loading bookings...</div>
+    </div>
+
+  </div>
+
+</div>
     <!-- ACCOUNT -->
     <div id="account" class="section">
 
@@ -502,7 +518,7 @@
         <p>Contact BBNI Media Hub</p>
 
         <button class="submit"
-          onclick="window.open('https://wa.me/233000000000','_blank')">
+          onclick="window.open('https://wa.me/233558008359','_blank')">
           Chat on WhatsApp 💬
         </button>
 
@@ -511,7 +527,7 @@
     </div>
 
     <div class="footer">
-      © 2026 BBNI Media Hub<br>
+      © 2020 BBNI Media Hub<br>
       Professional Media Services
     </div>
 
@@ -535,8 +551,13 @@
 
       document.getElementById(id).classList.add('active');
 
-      if (id === 'bookings') {
-        displayBookings();
+    if (id === 'bookings') {
+  displayBookings();
+}
+
+if (id === 'admin') {
+  displayAdminBookings();
+}
       }
 
       window.scrollTo(0, 0);
@@ -730,7 +751,80 @@ list.innerHTML =
 }
 
 }
+// ADMIN BOOKINGS
+async function displayAdminBookings() {
 
+  const list = document.getElementById("adminBookingList");
+
+  list.innerHTML =
+    '<div class="empty">Loading all client bookings...</div>';
+
+  try {
+
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/bookings?order=created_at.desc`,
+      {
+        method: "GET",
+        headers: {
+          "apikey": SUPABASE_PUBLISHABLE_KEY
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || `HTTP ${response.status}`);
+    }
+
+    const bookings = await response.json();
+
+    if (bookings.length === 0) {
+      list.innerHTML =
+        '<div class="empty">No client bookings yet.</div>';
+      return;
+    }
+
+    list.innerHTML = "";
+
+    bookings.forEach((booking, index) => {
+
+      list.innerHTML += `
+        <div class="booking">
+
+          <strong>${booking.service || "Service"}</strong>
+
+          <small>Booking #${index + 1}</small>
+
+          <small>👤 Client: ${booking.full_name || "Not provided"}</small>
+
+          <small>📞 Phone: ${booking.phone || "Not provided"}</small>
+
+          <small>🎉 Event: ${booking.event_type || "Not provided"}</small>
+
+          <small>📅 Date: ${booking.event_date || "Not provided"}</small>
+
+          <small>⏰ Time: ${booking.event_time || "Not provided"}</small>
+
+          <small>📍 Location: ${booking.location || "Not provided"}</small>
+
+          <small>💬 Message: ${booking.message || "None"}</small>
+
+          <small>🟡 Status: ${booking.status || "Pending"}</small>
+
+        </div>
+      `;
+
+    });
+
+  } catch (error) {
+
+    console.error("Admin booking loading error:", error);
+
+    list.innerHTML =
+      '<div class="empty">Unable to load client bookings.</div>';
+
+  }
+}
     // PAYMENT
     function makePayment() {
 
