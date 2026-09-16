@@ -762,21 +762,26 @@ async function displayAdminBookings() {
   try {
 
     const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/bookings?order=created_at.desc`,
+      `${SUPABASE_URL}/functions/v1/admin-bookings`,
       {
-        method: "GET",
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           "apikey": SUPABASE_PUBLISHABLE_KEY
-        }
+        },
+        body: JSON.stringify({
+          initData: Telegram.WebApp.initData
+        })
       }
     );
 
+    const result = await response.json();
+
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(errorText || `HTTP ${response.status}`);
+      throw new Error(result.error || `HTTP ${response.status}`);
     }
 
-    const bookings = await response.json();
+    const bookings = result.bookings || [];
 
     if (bookings.length === 0) {
       list.innerHTML =
@@ -821,7 +826,7 @@ async function displayAdminBookings() {
     console.error("Admin booking loading error:", error);
 
     list.innerHTML =
-      '<div class="empty">Unable to load client bookings.</div>';
+      `<div class="empty">Unable to load client bookings.<br><small>${error.message}</small></div>`;
 
   }
 }
